@@ -21,72 +21,72 @@
 </template>
 
 <script>
-import getHistory from "@/api/queries/getHistory";
-import { getToken } from "@/utils/auth";
+import getHistory from '@/api/queries/getHistory'
+import { getToken } from '@/utils/auth'
 export default {
-  name: "sendMessage",
-  data() {
+  name: 'sendMessage',
+  data () {
     return {
-      content: "",
+      content: '',
       list: [],
       to_user_id: parseInt(this.$route.query.id)
-    };
+    }
   },
-  mounted() {
-    this.getHistory();
+  mounted () {
+    this.getHistory()
     console.log(this.$socket)
-    this.$socket.onevent("receiveMessage", (body, fn) => {
-      console.log(123);
-      this.list.push(body);
-      fn({ sign: body.sign || false });
-    });
+    this.$socket.onevent('receiveMessage', (body, fn) => {
+      console.log(123)
+      this.list.push(body)
+      fn({ sign: body.sign || false })
+    })
   },
   methods: {
-    sendMessage() {
+    sendMessage () {
       let body = {
         msg_from: getToken(),
         msg_to: this.to_user_id,
-        msg_type: "text",
+        msg_type: 'text',
         msg_content: this.content
-      };
+      }
       this.$emitEvent(
         this.$socket,
         {
-          name: "sendMessage",
+          name: 'sendMessage',
           body: body
         },
         () => {
-          this.list.push(body);
-          console.log("发送成功");
+          this.list.push(body)
+          console.log('发送成功')
         },
         () => {
-          console.log("发送失败");
+          console.log('发送失败')
         }
-      );
+      )
     },
-    async getHistory() {
+    async getHistory () {
       try {
         let res = await getHistory({
           token: getToken(),
           target_id: parseInt(this.to_user_id)
-        });
-        let resData = res.data.data.getHistory;
+        })
+        let resData = res.data.data.getHistory
         if (resData.code === 0) {
-          this.list = JSON.parse(resData.data);
+          this.list = JSON.parse(resData.data)
         } else {
-          this.$message.error(resData.message);
+          this.$message.error(resData.message)
         }
       } catch (e) {
-        this.$message.error("请求错误");
+        this.$message.error('请求错误')
       }
     }
-  },
+  }
   // sockets: {
   //   receiveMessage(body, fn){
   //     console.log(body)
   //   }
   // }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -103,4 +103,3 @@ export default {
   }
 }
 </style>
-

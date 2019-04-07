@@ -8,35 +8,35 @@
 </template>
 
 <script>
-import addUser from "@/api/mutations/addUser";
+import addUser from '@/api/mutations/addUser'
 
 export default {
-  name: "Register",
-  data() {
+  name: 'Register',
+  data () {
     return {
       obj: {
-        tel: "",
-        password: "",
-        name: ""
+        tel: '',
+        password: '',
+        name: ''
       }
-    };
+    }
   },
-  mounted() {
+  mounted () {
 
   },
   methods: {
-    async addUser() {
+    async addUser () {
       // this.$socket.emit('setSocketInfo', body,function(res){
       //   console.log(res);
       // });
       try {
-        let res = await addUser(this.obj);
-        let resData = res.data.data.addUser;
+        let res = await addUser(this.obj)
+        let resData = res.data.data.addUser
         if (resData.code === 0) {
-          this.$message.success("新建成功");
+          this.$message.success('新建成功')
         }
       } catch (e) {
-        this.$message.error("请求错误");
+        this.$message.error('请求错误')
       }
     }
   }
@@ -48,7 +48,7 @@ export default {
   //     console.log(value);
   //   }
   // }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -56,4 +56,3 @@ export default {
 #Register {
 }
 </style>
-

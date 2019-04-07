@@ -1,0 +1,12 @@
+{
+	"development": {
+		"username": "root",
+		"password": "root123",
+		"database": "chat",
+		"host": "39.108.213.139",
+		"port": "3306",
+		"dialect": "mysql",
+		"timezone": "Asia/Shanghai",
+		"operatorsAliases": false
+	}
+}
